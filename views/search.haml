@@ -1,0 +1,17 @@
+!!! XML
+%results
+  - @cases.each do |c|
+    %poi{"id" => c._id.to_s, "interactionfeedback" => "none"}
+      %name 
+        =c.title
+      %description
+        =c.address
+      %date
+      %l= "#{c.location[1]},#{c.location[0]},0"
+      %o 0,0,0
+      %minaccuracy
+      %maxdistance
+      %mime-type text/plain
+      %thumbnail http://www.junaio.com/publisherDownload/tutorial/icon.jpg
+      %icon http://www.junaio.com/publisherDownload/tutorial/icon.jpg
+      %homepage http://www.metaio.com/

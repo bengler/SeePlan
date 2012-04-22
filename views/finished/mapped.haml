@@ -1,0 +1,68 @@
+
+
+%script{:type => "text/javascript", :src  => "http://maps.googleapis.com/maps/api/js?sensor=false"}
+
+
+#map_canvas{:style => "width:100%;height:900px;"}
+  bork
+
+:css
+  body {
+    margin: 0px;
+    font-size: 11px;
+  }
+
+:javascript
+
+  function init() {
+    var cases = #{@cases.to_json};
+    var openwindow = null 
+
+    var myLatlng = new google.maps.LatLng(59.907985, 10.752053);
+    var myOptions = {
+      zoom: 11,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    var i;
+    for (i = 0; i < cases.length;i++) {
+
+      c = cases[i];
+      
+      var myLatlng = new google.maps.LatLng(c.lat, c.lon);
+
+      content = ""
+      content += "<small>" + c.id + "</small>"
+      content += "<h3><a href='" + c.url + "'>"+ c.title + "</a></h3>"
+      content += c.address + "<br/>"
+      content += c.initiated_at + " -> " + c.finished_at + " (" + c.finished_name + ")"
+
+      var infowindow = new google.maps.InfoWindow({
+          content: content
+      });
+
+      var marker = new google.maps.Marker({
+          position: myLatlng, 
+          map: map,
+          title: c.title
+      });
+
+      marker.infowindow = infowindow;
+      google.maps.event.addListener(marker, 'click', function(a, b) {
+
+        if (openwindow !== null) {
+          openwindow.close()
+        }
+        this.infowindow.open(map,this);
+        openwindow = this.infowindow
+      });
+
+    }
+  }
+  window.onload = init;
+
+
+

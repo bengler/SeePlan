@@ -1,0 +1,148 @@
+
+
+%script{:type => "text/javascript", :src  => "/js_libs/d3.js"}
+%script{:type => "text/javascript", :src  => "/js_libs/d3.layout.js"}
+%script{:type => "text/javascript", :src  => "/js_libs/d3.time.js"}
+%script{:type => "text/javascript", :src  => "/js/Timeliner.js"}
+
+:css
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 10px;
+    margin: 0px;
+    letter-spacing: 0.078em;
+    background-color: #f5efe7;
+  }
+
+  .exchange {
+    fill: #000;
+    opacity: .4;
+  }
+
+  .connection {
+    stroke: #ee5564;
+  }
+
+  .connection.incoming {
+    stroke: #4aaff2;
+  }
+
+  .party text {
+    fill: #999;
+  }
+
+  #case_name
+    text-transform: uppercase;
+  
+
+  .axis {
+    shape-rendering: crispEdges;
+  }
+
+  .exchange circle {
+    opacity: 0.5;
+  }
+
+  .x.axis line {
+    stroke: #666;
+  }
+
+  .x.axis path {
+    stroke: #666;
+  }
+
+  .x.axis .tick {
+    stroke: #666;
+  }
+
+  .x.axis .minor {
+    stroke-opacity: .5;
+  }
+
+  .x.axis path {
+    fill: none;
+  }
+
+  .x.axis text {
+    font-size: 11px;
+    font-weight: 800;
+    color: #666;
+  }
+
+
+  .y.axis line, .y.axis path {
+    stroke: #333;
+    fill: none;
+  }
+
+  text {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  #waiting {
+    top: 200px;
+    left: 50%;
+    position: absolute;
+    opacity: 0.3;
+  }
+
+  #container {
+    width: 1200px;
+    margin: 0 auto;
+  }
+
+  #header {
+    position: fixed;
+    top: 0px;
+    background-color: rgba(255,255,255,0.8);
+    width: 100%;
+    box-shadow: 0px 3px 3px rgba(214,188,154,0.4);
+    padding: 7px 0px 5px 10px;
+  }
+
+  #chart {
+    clear: both;
+    margin: 70px
+  }
+
+  h1 {
+    font-weight: 900;
+    margin: 0px 0px 0px 0px;
+    padding:0;
+    font-size: 30px;
+    line-height: 27px;
+  }
+
+  h2 {
+    font-weight: 300;
+    padding:0 0 0 0;
+    margin:0;
+    text-transform: uppercase;
+    font-size: 14px
+  }
+
+
+#header
+  #container
+    %h1#case_title
+      = @title
+    %h2#case_info
+      Point to a case or party to see its connections
+
+#container
+  #chart
+    #waiting
+      %img{:src => "/spinner.gif"}
+
+:javascript
+  function init(data) {
+    document.getElementById("waiting").style.visibility = "hidden";
+    cases = data.cases;
+    parties = data.parties;
+    new Timeliner().plot(cases, parties);
+  };
+
+  d3.json("/timeline_data/#{@cluster}", init)
+
+

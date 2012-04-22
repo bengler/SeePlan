@@ -1,0 +1,13 @@
+
+
+:css
+  body {
+    font-size: 11px;
+  }
+
+- @images.each do |c|
+  .block{:style => "float:left;margin-bottom:60px"}
+    .inner
+      %img{:src => c.url}
+    
+    =c.title

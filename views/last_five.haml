@@ -1,0 +1,25 @@
+%h1="THE #{@cases.length} LAST CASES OF #{Case.count}"
+%table
+  - @cases.each do |c|
+    %tr
+      %td= link_to c.document_id, c.url
+      %td= c.title
+      %td= c.kind
+      %td= c.address
+      %td= "#{c.gnr}/#{c.bnr}"
+      %td= "#{c.exchanges.count}/#{c.recorded_number_of_exchanges}"
+      %td
+        %table
+          - c.exchanges.each do |exchange|
+            %tr.exchange{:class => exchange.incoming? && "incoming"}
+              %td= link_to exchange.document_id, exchange.url
+              %td= exchange.description
+              %td= exchange.classification
+              %td
+                %table
+                  - exchange.attachments.each do |attachment|
+                    %tr
+                      %td= link_to attachment.file_id, attachment.url
+                      %td= attachment.title
+                      %td= !attachment.size.nil? ? "#{attachment.size}kb" : "-"
+                      %td= !attachment.file_type.nil? ? attachment.file_type : "-" 

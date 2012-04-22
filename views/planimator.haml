@@ -1,0 +1,81 @@
+!!! 5
+%html
+  %head
+    %script{:type => "text/javascript"}
+      var _sf_startpt=(new Date()).getTime()
+    %title
+      The Planimator
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html', :charset => 'utf-8'}/
+
+    %link{:href => '/stylesheet.css', :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}/
+    %link{'rel' => 'shortcut icon', 'href' => '/favicon.png'}
+
+    %script{:type => "text/javascript", :src  => "js_libs/Three.js"}
+    %script{:type => "text/javascript", :src  => "js_libs/jquery.js"}
+    %script{:type => "text/javascript", :src  => "js_libs/Detector.js"}
+    %script{:type => "text/javascript", :src  => "js_libs/RequestAnimationFrame.js"}
+    %script{:type => "text/javascript", :src  => "js_libs/Stats.js"}
+    %script{:type => "text/javascript", :src  => "js_libs/Tween.js"}
+    %script{:type => "text/javascript", :src  => "js_libs/DAT.GUI.min.js"}
+    %script{:type => "text/javascript", :src  => "js_libs/underscore-min.js"}
+    %script{:type => "text/javascript", :src  => "js/SceneKeeper.js"}
+    %script{:type => "text/javascript", :src  => "js/Conversions.js"}
+    %script{:type => "text/javascript", :src  => "js/Case.js"}
+    %script{:type => "text/javascript", :src  => "js/GroundPlane.js"}
+    %script{:type => "text/javascript", :src  => "js/Planimator.js"}
+
+  %body.planimator
+    #error{:style => "display: none"}
+      #errorBox
+        %strong
+          The Planinmator isn't too happy with your browser
+        #errorMessage
+          %p
+            The sorry state of affairs is that this web page only runs in
+            <a href="http://www.google.com/chrome">Chrome</a>. 
+          %p
+            You can yell at me about this fact on 
+            <a href="http://twitter.com/even">Twitter</a>. 
+
+    #main
+      #legend
+        %ul
+          %li.planning
+            .legend_color_marker
+              &nbsp;
+            Planning
+          %li.building
+            .legend_color_marker
+            Building
+          %li.inquiry
+            .legend_color_marker
+            Inquiry
+          %li.borders
+            .legend_color_marker
+            Borders
+            
+      #stats
+      %h2#current_time
+      #case_description.overlay
+        &nbsp;
+      #read_moar.overlay
+        What am I seeing? Read about <a href="http://vis.bengler.no/projects/seeplan">the project</a>.
+  
+  :javascript
+  var _sf_async_config={uid:21927,domain:"planar.bengler.no"};
+  (function(){
+    function loadChartbeat() {
+      window._sf_endpt=(new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src',
+         (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+         "js/chartbeat.js");
+      document.body.appendChild(e);
+    }
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+       loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+

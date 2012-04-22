@@ -1,0 +1,157 @@
+@import 'mixins'
+
+body
+  :margin 20px 30px
+  :font-family "helvetica neue", serif
+
+a
+  :color #000
+  :font-weight 900
+
+li
+  :margin 5px 00
+
+h1
+  :font-family "Helvetica Neue", sans-serif
+  :font-size 40pt
+  :line-height 35pt
+  :text-transform uppercase
+  :margin 10px 00px
+  :font-weight 300
+
+table
+  :text-transform uppercase
+  :font-size 11px
+  :border-collapse collapse
+  :border-spacing 0px
+
+  td
+    :vertical-align top
+    :margin 0px
+    :padding 5px
+    :border 1px dotted #aaa
+
+.container
+  :width 400px
+
+.planimator
+  :overflow hidden
+  :margin 0px 0px
+
+  h1
+    :font-size 10pt
+    :margin 20px 20px 0px 20px
+    
+  h2
+    :font-family "OCR-A", "Monaco", "Andale Mono", "Courier"
+    :font-weight 100
+    :margin 10px 0px 0px 20px
+    :font-size 30px
+    :color #fff
+    :opacity 0.8
+
+
+  #legend
+    :width 200px
+    :position absolute
+    :right 00px
+    :opacity 0.8
+    :color #fff
+    :text-transform uppercase
+    :font-weight 800
+    :font-size 10pt
+
+    ul
+      :list-style-type none
+      :opacity 1
+      :width 250px
+      li
+        .legend_color_marker
+          :float left
+          :border 1px solid #fff
+          :width 12px
+          :height 12px
+          :background-color #f00
+          :margin-right 5px
+          :margin-top 1px
+      li.planning .legend_color_marker
+        :background-color #FFAC00
+      li.building .legend_color_marker
+        :background-color #404A69
+      li.inquiry .legend_color_marker
+        :background-color #8AC0DE
+      li.borders .legend_color_marker
+        :background-color #FFFFFF
+
+  .overlay
+    :font-weight 300
+    :font-family "Helvetica Neue", sans-serif
+    :font-size 12pt
+    :margin 0px 0px 0px 00px
+    :opacity 0.3
+    :text-transform uppercase
+    :color #fff
+    :padding 5px 5px 5px 25px
+    :background-color #000
+    :position absolute
+    :letter-spacing -0.017em
+
+  .overlay a
+    :color #fff
+    :font-weight 300
+
+  #read_moar
+    :bottom 10px
+    :font-size 10pt
+
+  #case_description
+    :bottom 40px
+    
+  #case_description a
+
+
+
+  #stats 
+    :position absolute
+    :top 0
+    :left 0
+
+  #error 
+    :position absolute
+    :background-size contain
+    :width 100%
+    :height 100%
+    :max-width 1920px
+    :color #fff
+
+  #error a
+    :color #fff
+
+  #errorBox 
+    :position absolute
+    :left 50%
+    :top 20%
+    :margin-left -12em
+    :margin-top -2em
+    :background rgba(0, 0, 0, 0.70)
+    :box-shadow 0px 0px 0.125em rgba(0, 0, 0, 0.95)
+    :padding 12px
+    :width 24em 
+   
+  #errorMessage
+    :font-size .8em
+
+   
+  #errorMessage a
+    :text-decoration underline
+
+  #main
+    :width 100%
+    :height 100%
+    :max-width 1920px
+    :position absolute
+    :left -50%
+    :z-index 100
+    :margin-left 50%
+
+      
