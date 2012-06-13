@@ -53,10 +53,10 @@ class Timeliner
         .attr("y1", start.y)
         .attr("x2", start.x)
         .attr("y2", start.y)
-        .style("stroke-width", 0.4)
+        .style("stroke-width", 0.45)
         .attr("class", connectionClass)
         .transition()
-          .duration(1500)
+          .duration(600)
           .attr("x2", stop.x)
           .attr("y2", stop.y)
 
@@ -78,7 +78,7 @@ class Timeliner
     d3.select(element).selectAll("g.exchange").each (d,i) ->
       exchangePt = self.circleToGlobalsCoords(this.childNodes[0])
       
-      d3.select("#party_" + d.sender_or_recipent).each (dp,i) ->
+      d3.select("#party_" + d.sor).each (dp,i) ->
         party = d3.select(this).select("circle")
         partyPt = self.circleToGlobalsCoords(party[0][0])
 
@@ -103,12 +103,13 @@ class Timeliner
           .attr("y1", start.y)
           .attr("x2", start.x)
           .attr("y2", start.y)
-          .style("stroke-width", 0.4)
+          .style("stroke-width", 0.45)
           .attr("class", connectionClass)
           .transition()
-            .duration(1500)
+            .duration(600)
             .attr("x2", stop.x)
             .attr("y2", stop.y)
+
 
   removeExchangeConnections: (d, i, element) ->
     d3.select(element)
@@ -143,10 +144,10 @@ class Timeliner
     # Parse values
     cases.forEach (d) ->  
       d.initiated_at = parse(d.initiated_at)
-      d.last_correspondance_at = parse(d.last_correspondance_at)
+      d.last_item = parse(d.last_item)
 
     # Compute the minimum and maximum date, and the maximum price.
-    x.domain([cases[0].initiated_at, d3.max( cases, (d) -> d.last_correspondance_at)])
+    x.domain([cases[0].initiated_at, d3.max( cases, (d) -> d.last_item)])
     y.domain([0, e])
 
     barHeight = y(cases.length)/e*0.7
@@ -170,15 +171,16 @@ class Timeliner
         .attr("width", (d,i) -> 0)
         .attr("x", (d) -> x(d.initiated_at))
         .attr("height", barHeight)
+        .on("click", (d,i) -> window.open("http://web102881.pbe.oslo.kommune.no/saksinnsyn/casedet.asp?direct=Y&mode=all&caseno=" + d.doc))
       .transition()
-        .attr("width", (d,i) ->  x(d.last_correspondance_at) - x(d.initiated_at))
-        .delay((d, i) -> i * 10)
+        .attr("width", (d,i) ->  x(d.last_item) - x(d.initiated_at))
+        .delay((d, i) -> i * 15)
 
     exchanges = cases.selectAll("g.exchanges")
         .data( (d) -> d.exchanges )
       .enter().append("svg:g")
         .attr("class", "exchange")
-        .attr("id", (d) -> "correspondent_" + d.sender_or_recipent)
+        .attr("id", (d) -> "correspondent_" + d.sor)
         .attr("transform", (d) -> "0,0)")
 
     exchanges.append("svg:circle")

@@ -103,12 +103,13 @@ get '/timeline_data/:cluster' do |cluster|
   cases = cases.map do |c|
     { 
       :title => c.title.upcase,
+      :doc => c.document_id,
       :initiated_at => c.initiated_at,
-      :last_correspondance_at => c.exchanges[-1].journal_date,
+      :last_item => c.exchanges[-1].journal_date,
       :exchanges => c.exchanges.all(:order => :journal_date.asc).map do |e|
         {
           :incoming => e.incoming,
-          :sender_or_recipent => (e.sender_or_recipent.nil? ? nil : e.sender_or_recipent.canonical_id),
+          :sor => (e.sender_or_recipent.nil? ? nil : e.sender_or_recipent.canonical_id),
           :journal_date => e.journal_date
         }
       end    
