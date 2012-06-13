@@ -56,7 +56,7 @@ class Timeliner
         .style("stroke-width", 0.45)
         .attr("class", connectionClass)
         .transition()
-          .duration(600)
+          .duration(400 + (Math.max(stop.x, start.x) / 2))
           .attr("x2", stop.x)
           .attr("y2", stop.y)
 
@@ -174,7 +174,7 @@ class Timeliner
         .on("click", (d,i) -> window.open("http://web102881.pbe.oslo.kommune.no/saksinnsyn/casedet.asp?direct=Y&mode=all&caseno=" + d.doc))
       .transition()
         .attr("width", (d,i) ->  x(d.last_item) - x(d.initiated_at))
-        .delay((d, i) -> i * 15)
+        .delay((d, i) -> i * 1/2)
 
     exchanges = cases.selectAll("g.exchanges")
         .data( (d) -> d.exchanges )
@@ -229,7 +229,7 @@ class Timeliner
       .on("mouseout", (d,i) -> self.removePartyConnections(d, i, this))
       .transition()
         .duration(100)
-        .attr("r", (d) -> d.r * 0.9 )
+        .attr("r", (d) -> d.r * 0.90 )
         .delay((d, i) -> i * 3)
 
     node.append("svg:text")
