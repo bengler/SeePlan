@@ -73,11 +73,22 @@ get '/timeline_data/:cluster' do |cluster|
      ["document_id in (select document_id from cases where ST_Within(cases.location, '#{polygon.as_hex_ewkb}'))"])
     cases += Case.all(:conditions => ["title ilike '%barcode%' or title ilike '%bjørvika%'"])
   else
-    point = [10.72191, 59.906266]
-    centre = GeoRuby::SimpleFeatures::Point.from_coordinates(point, 4326)
-    cases = Case.all(:conditions => ["title ilike '%tjuvholmen%' or title ilike '%fjordparken%'"])
-    cases += Case.all(:conditions => 
-      ["document_id in (select document_id from cases where ST_Distance_Sphere(cases.location, '#{centre.as_hex_ewkb}') < 400)"])
+
+points = [[[10.71815,59.907533],
+      [10.718279,59.906178],
+      [10.721927,59.905274], 
+      [10.723686,59.906328], 
+      [10.72403,59.908243], 
+      [10.723386,59.909771], 
+      [10.722828,59.909965], 
+      [10.718579,59.908566], 
+      [10.718386,59.907555]]] 
+
+    polygon = GeoRuby::SimpleFeatures::Polygon.from_coordinates(points, 4326)
+
+    cases = Case.all(:conditions => 
+     ["document_id in (select document_id from cases where ST_Within(cases.location, '#{polygon.as_hex_ewkb}'))"])
+    cases += Case.all(:conditions => ["title ilike '%tjuvholmen%' or title ilike '%fjordparken%'"])
   end
 
   party_count = {}
