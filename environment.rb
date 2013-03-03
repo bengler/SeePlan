@@ -14,6 +14,7 @@ require 'yajl/json_gem'
 
 set :root, File.dirname(__FILE__)
 set :haml, :format => :html5
+set :protection, :except => :frame_options
 
 PBE_URL = "http://web102881.pbe.oslo.kommune.no"
 CASE_PATH = "/saksinnsyn/casedet.asp?direct=Y&mode=all&caseno="
