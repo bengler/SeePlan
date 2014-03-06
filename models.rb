@@ -52,8 +52,8 @@ class Case
   property :gnr,                Integer
   property :bnr,                Integer
 
-  property :location,           DMGeometry, :required => false
-  property :location_utm,       DMGeometry, :required => false
+  property :location,           PostGISGeometry, :required => false
+  property :location_utm,       PostGISGeometry, :required => false
 
   property :recorded_number_of_exchanges,   Integer, :required => true
 

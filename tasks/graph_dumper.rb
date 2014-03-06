@@ -2,6 +2,8 @@
 
 module GraphDumper
 
+  # Remember read through name to canonical party name
+
   require 'builder'
 
   GRUNERLOKKA = [10.759263, 59.924367]
@@ -34,10 +36,10 @@ module GraphDumper
 
 
       # Ambassader
-      # parties = Party.all(:conditions => ["name ilike '%embassy%' or name ilike '%ambassade%'"])
-      # cases = Case.all(
-      #   Case.exchanges.sender_or_recipent_id => parties.map(&:id), 
-      #   :initiated_at.gt => Date.new(2005, 1, 1)).uniq
+      parties = Party.all(:conditions => ["name ilike '%embassy%' or name ilike '%ambassade%'"])
+      cases = Case.all(
+        Case.exchanges.sender_or_recipent_id => parties.map(&:id), 
+        :initiated_at.gt => Date.new(2005, 1, 1)).uniq
 
       # cases +=  Case.all(:applicant => parties, 
       #   :initiated_at.gt => Date.new(2005, 1, 1)).uniq
@@ -47,9 +49,9 @@ module GraphDumper
       #   :initiated_at.gt => Date.new(2005, 1, 1)).uniq
 
       # Kampen
-      centre = GeoRuby::SimpleFeatures::Point.from_coordinates(KAMPEN, 4326)
-      cases = Case.all(:conditions => 
-        ["document_id in (select document_id from cases where kind = 'Byggesak' and initiated_at > ? and ST_Distance_Sphere(cases.location, '#{centre.as_hex_ewkb}') < 300 order by ST_distance(cases.location, '#{centre.as_hex_ewkb}'))", Date.new(2004, 1, 1)])
+      # centre = GeoRuby::SimpleFeatures::Point.from_coordinates(KAMPEN, 4326)
+      # cases = Case.all(:conditions => 
+      #   ["document_id in (select document_id from cases where kind = 'Byggesak' and initiated_at > ? and ST_Distance_Sphere(cases.location, '#{centre.as_hex_ewkb}') < 300 order by ST_distance(cases.location, '#{centre.as_hex_ewkb}'))", Date.new(2004, 1, 1)])
 
       # Bjørvika
       # cases = Case.all(:conditions => 
@@ -84,6 +86,12 @@ module GraphDumper
       #   :initiated_at.gt => Date.new(2005, 1, 1)).uniq
       
       # cases = Case.all(:limit => 1000, :initiated_at.gt => Date.parse('2 jan 2008'))
+
+      # Langemyhr
+      # clusters = Cluster.all(:conditions => ["canonical_name ilike '%steinar mo%'"])[0..3].map(&:id)
+      # parties = Party.all(:cluster_id => clusters)
+      # cases = Case.all(Case.exchanges.sender_or_recipent_id => parties.map(&:id))
+      # cases += Case.all(:applicant => parties) | Case.all(:developer => parties)
 
       cases.uniq!
       puts "Found #{cases.count} cases"

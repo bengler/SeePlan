@@ -33,22 +33,8 @@ get '/timeline_data/:cluster' do |cluster|
   party_count = nil
   parties = nil
 
-  if cluster == "eufemia"
-    points = [[[10.751238,59.909707], 
-              [10.762224,59.906823],
-              [10.761795,59.906457],
-              [10.750895,59.909319]]]
 
-    polygon = GeoRuby::SimpleFeatures::Polygon.from_coordinates(points, 4326)
-    cases = Case.all(:conditions => 
-     ["document_id in (select document_id from cases where ST_Within(cases.location, '#{polygon.as_hex_ewkb}'))"])
-
-    cases += Case.all(:conditions => ["title ilike '%A7%A9%' or title ilike '%A14%' or 
-      title ilike '%A25%' or title ilike '%E2%' or title ilike '%A30%' or title ilike '%A32%' or title ilike '%E4%' or 
-      title ilike '%E5%' or title ilike '%B25%' or title ilike '%B10%B13%' or title ilike '%B24%' or title ilike '%B21%' or 
-      title ilike '%B22%' or title ilike '%B1-B3%' or title ilike '%B7%'"])
-
-  elsif cluster == "bjorvika"
+  if cluster == "bjorvika"
 
     points = [[[10.746303,59.905145], 
               [10.743341,59.906006],
@@ -72,17 +58,18 @@ get '/timeline_data/:cluster' do |cluster|
     cases = Case.all(:conditions => 
      ["document_id in (select document_id from cases where ST_Within(cases.location, '#{polygon.as_hex_ewkb}'))"])
     cases += Case.all(:conditions => ["title ilike '%barcode%' or title ilike '%bjørvika%'"])
+
   else
 
-points = [[[10.71815,59.907533],
-      [10.718279,59.906178],
-      [10.721927,59.905274], 
-      [10.723686,59.906328], 
-      [10.72403,59.908243], 
-      [10.723386,59.909771], 
-      [10.722828,59.909965], 
-      [10.718579,59.908566], 
-      [10.718386,59.907555]]] 
+    points = [[[10.71815,59.907533],
+          [10.718279,59.906178],
+          [10.721927,59.905274], 
+          [10.723686,59.906328], 
+          [10.72403,59.908243], 
+          [10.723386,59.909771], 
+          [10.722828,59.909965], 
+          [10.718579,59.908566], 
+          [10.718386,59.907555]]] 
 
     polygon = GeoRuby::SimpleFeatures::Polygon.from_coordinates(points, 4326)
 

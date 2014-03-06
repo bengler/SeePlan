@@ -31,6 +31,7 @@ group :development, :test do
   gem "capistrano"
   gem "awesome_print"
   gem "growl"
+  gem "gexf"
   gem "unicode_utils"
   gem "mechanize"
   gem "amatch"

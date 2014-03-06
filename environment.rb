@@ -25,7 +25,17 @@ DataMapper::Model.raise_on_save_failure = true
 
 configure :development do
   PLANAR_URL = "http://hoko.bengler.no:3000"
-  DataMapper.setup(:default, 'postgres://localhost/planar_development')
+  DataMapper.setup(:default, 'postgres://localhost/planar_dev')
+
+  require 'memcached'
+  require 'rack/cache'
+  before do
+    cache_control :public, :max_age => 172800
+  end
+  use Rack::Cache,
+    :verbose     => true,
+    :metastore   => 'memcached://localhost:11211/meta',
+    :entitystore => 'memcached://localhost:11211/body'
 end
 
 configure :production do
