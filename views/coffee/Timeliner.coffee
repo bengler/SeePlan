@@ -127,7 +127,7 @@ class Timeliner
       .style("fill", "#dcd6cd")
 
   plotCases: (cases) ->
-    m = [0, 00, 00, 40]
+    m = [0, 0, 0, 40]
 
     w = 1100 - m[1] - m[3]
     h = 900 - m[0] - m[2]
@@ -198,7 +198,7 @@ class Timeliner
     w = 600
     h = 600
     hOffset = 280
-    wOffset = 00
+    wOffset = 0
 
     format = d3.format(",d")
     color = d3.interpolateRgb("#eee", @highlightColor)
