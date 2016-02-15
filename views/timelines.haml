@@ -1,5 +1,4 @@
 
-
 %script{:type => "text/javascript", :src  => "/js_libs/d3.js"}
 %script{:type => "text/javascript", :src  => "/js_libs/d3.layout.js"}
 %script{:type => "text/javascript", :src  => "/js_libs/d3.time.js"}
@@ -132,6 +131,10 @@
       %img{:src => "/spinner.gif"}
 
 :javascript
+  SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function(toElement) {
+    return toElement.getScreenCTM().inverse().multiply(this.getScreenCTM());
+  };
+
   function init(data) {
     document.getElementById("waiting").style.visibility = "hidden";
     cases = data.cases;
